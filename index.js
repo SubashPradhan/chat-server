@@ -20,7 +20,7 @@ app.post('/message',
     messages.push(message)
 
     sse.updateInit(messages)
-    sse.send(message)
+    sse.send(messages)
 
     response.send(message)
   }
