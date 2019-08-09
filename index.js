@@ -5,8 +5,12 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 
 const messages =['hello world']
+
+const data = JSON.stringify(messages)
+
 const middleware = cors()
-const sse = new Sse(messages)
+
+const sse = new Sse(data)
 
 const app = express()
 app.use(middleware)
@@ -19,8 +23,10 @@ app.post('/message',
     const {message} = request.body
     messages.push(message)
 
-    sse.updateInit(messages)
-    sse.send(messages)
+    const data = JSON.stringify(messages)
+
+    sse.updateInit(data)
+    sse.send(data)
 
     response.send(message)
   }
