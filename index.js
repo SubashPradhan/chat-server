@@ -1,13 +1,15 @@
 const express = require('express')
 const Sse =require('json-sse')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 
 const messages =['hello world']
-
+const middleware = cors()
 const sse = new Sse(messages)
 
 const app = express()
+app.use(middleware)
 app.use(jsonParser)
 
 app.get('/stream', sse.init)
